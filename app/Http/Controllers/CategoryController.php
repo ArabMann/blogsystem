@@ -75,7 +75,7 @@ class CategoryController extends Controller
             $updateCategory = $category->update($validation);
         });
 
-        return redirect()->route("admin.category.index");
+        return redirect()->route("admin.category.index")->with("Success");
     }
 
     /**
