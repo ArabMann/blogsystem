@@ -26,7 +26,7 @@
                                 <td>{{ $data->role->name }}</td>
                                 <td>
                                     <button class="btn btn-sm btn-outline-primary"><a
-                                            href="{{ route('category.edit', $data) }}">Edit</a></button>
+                                            href="{{ route('admin.category.edit', $data) }}">Edit</a></button>
                                     <button class="btn btn-sm btn-outline-danger">Delete</button>
                                 </td>
                             </tr>

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\NewsController;
@@ -30,9 +31,10 @@ Route::prefix('admin')->name("admin.")->group(function(){
 // Route::get("/show");
 Route::resource('login', LoginController::class);
 Route::resource('register', RegisterController::class);
+Route::resource("comment", CommentController::class);
 Route::post("/login-success", [LoginController::class, "authenticate"])->name("authenticate");
 
 Route::resource("news", NewsController::class)->only("show");
 
 
-Route::get('/', [DashboardController::class, 'indexUser']);
+Route::get('/', [DashboardController::class, 'indexUser'])->name("dashboard.index");

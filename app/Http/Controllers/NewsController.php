@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreNewsRequest;
+use App\Http\Requests\UpdateNewsRequest;
+use App\Models\Comment;
 
 class NewsController extends Controller
 {
@@ -60,7 +62,12 @@ class NewsController extends Controller
     public function show(News $news)
     {
         //
-        return view("admin.news.show", compact("news"));
+        // dd($news->category_id);
+        $comments = Comment::where("news_id", $news->id)->orderByDesc("created_at")->get();
+        $dataCategory = News::where("category_id", $news->category_id)->get();
+        $dataTerbaru = News::orderBy('created_at', "desc")->get();
+        
+        return view("admin.news.show", compact("news", "dataTerbaru", "comments", "dataCategory"));
     }
 
     /**
@@ -69,14 +76,30 @@ class NewsController extends Controller
     public function edit(News $news)
     {
         //
+        $category = Category::all();
+        return view("admin.news.edit", compact("news", "category"));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, News $news)
+    public function update(UpdateNewsRequest $request, News $news)
     {
         //
+        DB::transaction(function() use($request, $news){
+            $validation = $request->validated();
+
+            $validation["image"] = $validation[Str::slug("name")];
+            if($request->hasFile("image")){
+                $imagePath = $request->file('image')->store("images", "public");
+
+                $validation["image"] = $imagePath;
+            }
+
+            $updateImage = $news->update($validation);
+        });
+
+        return redirect()->route("admin.news.index");
     }
 
     /**
