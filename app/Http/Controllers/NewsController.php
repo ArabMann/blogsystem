@@ -66,8 +66,9 @@ class NewsController extends Controller
         $comments = Comment::where("news_id", $news->id)->orderByDesc("created_at")->get();
         $dataCategory = News::where("category_id", $news->category_id)->get();
         $dataTerbaru = News::orderBy('created_at', "desc")->get();
+        $categories = Category::all();
         
-        return view("admin.news.show", compact("news", "dataTerbaru", "comments", "dataCategory"));
+        return view("admin.news.show", compact("news", "dataTerbaru", "comments", "dataCategory", "categories"));
     }
 
     /**

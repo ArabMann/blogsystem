@@ -38,3 +38,4 @@ Route::resource("news", NewsController::class)->only("show");
 
 
 Route::get('/', [DashboardController::class, 'indexUser'])->name("dashboard.index");
+Route::get('/{category:slug}', [DashboardController::class, 'category'])->name("dashboard.category");
