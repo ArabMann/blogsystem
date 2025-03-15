@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AboutController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\DashboardController;
@@ -25,6 +26,7 @@ Route::prefix('admin')->name("admin.")->group(function(){
     Route::get("/", [DashboardController::class, "index"])->middleware("role:admin,creator")->name("dashboard.index");
     Route::resource('category', CategoryController::class)->middleware("role:admin");
     Route::resource("user", UserController::class)->middleware("role:admin");
+    Route::resource("about", AboutController::class)->middleware("role:admin");
     Route::resource("news", NewsController::class)->middleware("role:creator")->except("show");
 });
 
@@ -38,4 +40,5 @@ Route::resource("news", NewsController::class)->only("show");
 
 
 Route::get('/', [DashboardController::class, 'indexUser'])->name("dashboard.index");
+Route::get('/about', [DashboardController::class, 'about'])->name("dashboard.about");
 Route::get('/{category:slug}', [DashboardController::class, 'category'])->name("dashboard.category");

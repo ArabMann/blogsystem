@@ -68,7 +68,7 @@ class CategoryController extends Controller
     public function update(UpdateCategoryRequest $request, Category $category)
     {
         //
-        DB::transaction(function () use($request, $category) {
+        DB::transaction(function () use ($request, $category) {
             $validation = $request->validated();
             $validation["slug"] = Str::slug($validation['name']);
 
@@ -84,5 +84,14 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         //
+        DB::beginTransaction();
+        try {
+            $category->delete();
+            DB::commit();
+            return redirect()->route("admin.category.index");
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->route("admin.category.index");
+        }
     }
 }

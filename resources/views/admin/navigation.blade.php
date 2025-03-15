@@ -12,6 +12,7 @@
                     @if (Auth::user()->role->name === 'admin')
                         <li class="nav-item"><a class="nav-link" href="{{ route('admin.category.index') }}">Category</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ route('admin.user.index') }}">Creator</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('admin.about.index') }}">About</a></li>
                     @endif
                     @if (Auth::user()->role->name === 'creator')
                         <li class="nav-item"><a class="nav-link" href="{{ route('admin.news.index') }}">New</a></li>

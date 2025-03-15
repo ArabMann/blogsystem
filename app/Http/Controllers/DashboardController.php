@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\About;
 use App\Models\Category;
 use App\Models\News;
 use Illuminate\Http\Request;
@@ -26,5 +27,12 @@ class DashboardController extends Controller
         $datas = News::where("category_id", $category_slug->id)->get();
     
         return view("user.dashboard.category", compact("datas", "categories"));
+    }
+
+    public function about(){
+        $categories = Category::all();
+        $abouts = About::all();
+
+        return view("user.dashboard.about", compact("categories", "abouts"));
     }
 }

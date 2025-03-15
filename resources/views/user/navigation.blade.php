@@ -1,14 +1,15 @@
 @section('navigation')
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="#">My Blog</a>
+            <a class="navbar-brand" href="{{ route("dashboard.index") }}">My Blog</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">About</a></li>
+                {{-- Bagian tengah --}}
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item"><a class="nav-link" href="{{ route("dashboard.index") }}">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('dashboard.about') }}">About</a></li>
 
                     <!-- Dropdown menu -->
                     <li class="nav-item dropdown">
@@ -18,15 +19,19 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
                             @foreach ($categories as $category)
-                            {{-- @php
-                                dd($category);
-                            @endphp --}}
-                                <li><a class="dropdown-item" href="{{ route('dashboard.category', $category) }}">{{ $category->name }}</a>
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('dashboard.category', $category) }}">
+                                        {{ $category->name }}
+                                    </a>
+                                </li>
                             @endforeach
                         </ul>
                     </li>
+                </ul>
 
-                    <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+                {{-- Bagian kanan: Login --}}
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="{{ route('login.index') }}">Login</a></li>
                 </ul>
             </div>
         </div>
